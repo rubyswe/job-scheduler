@@ -1,4 +1,4 @@
-package io.github.rubyswe.jon_scheduler;
+package io.github.rubyswe.job_scheduler;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
