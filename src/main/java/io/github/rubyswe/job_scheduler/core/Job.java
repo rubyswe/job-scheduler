@@ -46,6 +46,6 @@ public class Job {
 
         createdAt = LocalDateTime.now();
         id = UUID.randomUUID().toString();
+        status = Status.PENDING;
     }
-
 }
