@@ -3,24 +3,29 @@ package io.github.rubyswe.job_scheduler.core;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class JobQueue {
 
-    private Map<String, Job> map = new HashMap<String, Job>();
-    private ArrayBlockingQueue<Job> queue = new ArrayBlockingQueue<Job>(12);
+    private static final int CAPACITY = 12; // shared across prog
+    private final Map<String, Job> map = new ConcurrentHashMap<>();
+    private final ArrayBlockingQueue<Job> queue = new ArrayBlockingQueue<>(CAPACITY);
 
-    public void submit(Job job){
-        // put job into map
-        // offer job into queue
-        map.put(job.getId(), job);
-        queue.add(job);
+    public boolean submit(Job job){
+        // will return bool depending on if queue is full or not
+        // only put job into map if queue succeeds
+        if (queue.offer(job)){
+            map.put(job.getId(), job);
+            return true;
+        }
+        return false;
     }
 
-    public void take() throws InterruptedException {
-        Job job = queue.take();
+    public Job take() throws InterruptedException {
+        return queue.take();
     }
 
-
-
-
+    public Job get(String id){
+        return map.get(id);
+    }
 }
