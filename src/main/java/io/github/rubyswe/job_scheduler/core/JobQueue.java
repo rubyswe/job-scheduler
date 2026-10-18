@@ -9,7 +9,7 @@ public class JobQueue {
 
     private static final int CAPACITY = 12; // shared across prog
     private final Map<String, Job> map = new ConcurrentHashMap<>();
-    private final ArrayBlockingQueue<Job> queue = new ArrayBlockingQueue<>(CAPACITY);
+    private static final ArrayBlockingQueue<Job> queue = new ArrayBlockingQueue<>(CAPACITY);
 
     public boolean submit(Job job){
         // will return bool depending on if queue is full or not
