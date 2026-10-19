@@ -22,7 +22,7 @@ public class ImageSorter {
     // should maybe add a second method for the moving operation and have
     // the sort method call it and move the according image into the 4k folder
 
-    public int sortImages(String folderPath){
+    public int sortImages(String folderPath) throws IOException {
 
         // Traverses through files on 1 level and prints the files
         Path folder = Paths.get(folderPath);
@@ -30,12 +30,12 @@ public class ImageSorter {
 
         Path path = Paths.get(folderPath);
 
-        try (Stream<Path> paths = Files.walk(path, 1)){
+        Stream<Path> paths = Files.walk(path, 1);
 
-            Files.createDirectories(targetDir);
+        Files.createDirectories(targetDir);
 
-            // puts all 4k images into a list
-            List<Path> fourKImages = paths
+        // puts all 4k images into a list
+        List<Path> fourKImages = paths
                     .filter(Files::isRegularFile) // check to see if file is a regular file
                     // gets file's name, lowercase it and keep it only it ends in .jpg or.jpeg
                     .filter(file -> {String name = file.getFileName().toString().toLowerCase();
@@ -44,19 +44,14 @@ public class ImageSorter {
                     .toList();
                     //.forEach(System.out::println);
 
-            int move = 0;
-            for(Path img : fourKImages){
-                if (moveToFolder(img, targetDir)){
-                    move++;
-                }
+        int move = 0;
+        for(Path img : fourKImages){
+            if (moveToFolder(img, targetDir)){
+                move++;
             }
-            return move;
-
-        }  catch (IOException e) {
-            System.out.println("Error reading file");
-            e.printStackTrace();
-            return -1;
         }
+        return move;
+
     }
 
     // reads images and determine if they are 4k
@@ -92,7 +87,6 @@ public class ImageSorter {
     public boolean moveToFolder(Path image, Path tarDir){
 
         Path destination = tarDir.resolve(image.getFileName());
-
         try {
             Files.move(image, destination);
             return true;
