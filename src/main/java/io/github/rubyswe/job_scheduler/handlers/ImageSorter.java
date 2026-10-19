@@ -1,5 +1,7 @@
 package io.github.rubyswe.job_scheduler.handlers;
 
+import org.springframework.stereotype.Component;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
+@Component
 public class ImageSorter {
     // test folder
     private static final String TEST_FOLDER = "/Users/ruby/pic_test";

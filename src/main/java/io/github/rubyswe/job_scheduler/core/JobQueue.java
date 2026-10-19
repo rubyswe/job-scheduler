@@ -1,10 +1,13 @@
 package io.github.rubyswe.job_scheduler.core;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class JobQueue {
 
     private static final int CAPACITY = 12; // shared across prog

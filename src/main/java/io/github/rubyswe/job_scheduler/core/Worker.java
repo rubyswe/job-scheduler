@@ -1,8 +1,9 @@
 package io.github.rubyswe.job_scheduler.core;
 import io.github.rubyswe.job_scheduler.handlers.ImageSorter;
+import org.springframework.stereotype.Component;
 
 
-
+@Component
 public class Worker implements Runnable {
 
     private final JobQueue queue;
