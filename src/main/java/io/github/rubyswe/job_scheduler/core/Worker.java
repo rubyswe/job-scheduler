@@ -26,7 +26,6 @@ public class Worker implements Runnable {
                     // inner try block is for the specific job
                     try  {
                         int count = 0;
-
                         System.out.println("Job " + job.getId() + " started");
 
                         switch (job.getType()) {
@@ -39,9 +38,7 @@ public class Worker implements Runnable {
                     } catch (Exception e) {
                         System.out.println("Job " + job.getId() + " failed: " + e.getMessage());
                         job.setStatus(Job.Status.FAILED);
-
                     }
-
                 }catch (InterruptedException e){
                     Thread.currentThread().interrupt();
                     break;

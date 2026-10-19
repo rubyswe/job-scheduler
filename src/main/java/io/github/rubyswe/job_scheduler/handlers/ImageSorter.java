@@ -12,26 +12,18 @@ import java.util.stream.Stream;
 public class ImageSorter {
     // test folder
     private static final String TEST_FOLDER = "/Users/ruby/pic_test";
-    // constants for width and height
+
     private static final int MIN_LONG_SIDE = 3840;
     private static final int MIN_SHORT_SIDE = 2160;
     private static final String MY_PICTURES_PATH = "/Users/ruby/my_pictures"; // path for folder
 
-    // one method is needed
-    // 1. reads through the given folder and find images that are 4k
-    // should maybe add a second method for the moving operation and have
-    // the sort method call it and move the according image into the 4k folder
-
     public int sortImages(String folderPath) throws IOException {
 
-        // Traverses through files on 1 level and prints the files
-        Path folder = Paths.get(folderPath);
-        Path targetDir = folder.resolve("4k");
+        Path folder = Paths.get(folderPath); // get folder to work on
+        Path targetDir = folder.resolve("4k"); // create a sub folder within
 
-        Path path = Paths.get(folderPath);
-
-        Stream<Path> paths = Files.walk(path, 1);
-
+        Path path = folder;
+        Stream<Path> paths = Files.walk(path, 1); // Traverses through files on 1 level and prints the files
         Files.createDirectories(targetDir);
 
         // puts all 4k images into a list
@@ -42,8 +34,6 @@ public class ImageSorter {
                         return name.endsWith(".jpg") || name.endsWith(".jpeg");})
                     .filter(this::isFourK)
                     .toList();
-                    //.forEach(System.out::println);
-
         int move = 0;
         for(Path img : fourKImages){
             if (moveToFolder(img, targetDir)){
@@ -51,10 +41,8 @@ public class ImageSorter {
             }
         }
         return move;
-
     }
 
-    // reads images and determine if they are 4k
     public boolean isFourK(Path image) {
 
         int width;
@@ -83,7 +71,6 @@ public class ImageSorter {
         return longSide >= MIN_LONG_SIDE && shortSide >= MIN_SHORT_SIDE;
     }
 
-    // function will move images to a 4k folder
     public boolean moveToFolder(Path image, Path tarDir){
 
         Path destination = tarDir.resolve(image.getFileName());

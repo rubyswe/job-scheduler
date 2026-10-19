@@ -14,7 +14,6 @@ import java.util.UUID;
 
 public class Job {
 
-    // ------------ Enums for status and Types ------------ //
     public enum Status{
         PENDING,
         RUNNING,
@@ -25,18 +24,14 @@ public class Job {
     public enum Type{ // will add more
         SORT_BY_RESOLUTION
     }
-    // --------------------------------------------------- //
 
-
-    // -----------------Data fields-----------------------//
-    private final String id; // cannot be changed
-    private final LocalDateTime createdAt; // cannot be changed
+    private final String id;
+    private final LocalDateTime createdAt;
     private String title;
     private String description;
     private Type type;
     private String location;
     private Status status;
-    // --------------------------------------------------- //
 
     public Job(String title, String description, Type type, String location){
         this.title = title;
