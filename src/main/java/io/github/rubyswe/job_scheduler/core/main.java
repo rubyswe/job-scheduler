@@ -40,7 +40,6 @@ public class main {
         ImageSorter imageSorter = new ImageSorter();
         int count = imageSorter.sortImages(TEST_FOLDER);
 
-        */
 
         // test 3
 
@@ -60,6 +59,10 @@ public class main {
 
         System.out.println("Good job: " + jobQueue.get(good.getId()).getStatus());
         System.out.println("Bad job:  " + jobQueue.get(bad.getId()).getStatus());
+
+
+        */
+
 
 
 
