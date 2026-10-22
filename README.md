@@ -8,13 +8,62 @@ I built it for my own photography workflow. Checking resolution and keywording e
 
 ## Tech Stack
 
-| Area | Tools |
-|---|---|
-| Language | Java 21 |
-| Framework | Spring Boot 4 (Web MVC) |
-| Build | Maven (wrapper included) |
-| Boilerplate | Lombok |
-| Image I/O | `javax.imageio` |
+### ✅ Currently Using
+
+| Area | Tool | What It's For |
+|---|---|---|
+| Language | **Java 21** | Core language (records, switch expressions, virtual threads available) |
+| Framework | **Spring Boot 4 (Web MVC)** | REST API, dependency injection, app lifecycle |
+| Build | **Maven** (wrapper included) | Dependencies and builds, with `./mvnw` so no local Maven install is needed |
+| Boilerplate | **Lombok** | Generates getters, setters and constructors (`@Data`, `@AllArgsConstructor`) |
+| Concurrency | **`java.util.concurrent`** | `ArrayBlockingQueue` and `ConcurrentHashMap` for thread-safe job handling |
+| File I/O | **`java.nio.file`** | Walking folders and moving files (`Files.walk`, `Files.move`) |
+| Image I/O | **`javax.imageio`** | Reading image dimensions |
+| Testing | **JUnit 5** + Spring Boot Test | Test framework (currently just a context-load test) |
+| IDE | **IntelliJ IDEA** | Development |
+| Version Control | **Git** + **GitHub** | Source control and hosting |
+
+### 🗺️ Planned (From the Roadmap)
+
+| Area | Tool | What I'll Learn |
+|---|---|---|
+| Logging | **SLF4J** + Logback | Structured logging with log levels, replacing `System.out` |
+| Validation | **Jakarta Bean Validation** (`@Valid`) | Validating input at the API boundary |
+| Image Metadata | **metadata-extractor** / `ImageReader` | Reading image dimensions from headers without decoding the whole file |
+| Concurrency | **`ExecutorService`** + **virtual threads** | Thread pools and Java 21's lightweight threads |
+| Database | **PostgreSQL** + **Spring Data JPA** | Persistence, ORM, and `SELECT ... FOR UPDATE SKIP LOCKED` job claiming |
+| ML Model | **CLIP** (OpenAI / `open_clip`) | Matching images against a list of keywords without training a model |
+| ML Model | **BLIP** (Hugging Face) | Generating titles and captions from images |
+| ML Runtime | **PyTorch** + **Hugging Face Transformers** | Loading and running pretrained models |
+| ML Service | **FastAPI** (Python) *or* **ONNX Runtime** / **DJL** (Java) | Serving models and tying Java and Python together |
+| Metadata Writing | **ExifTool** | Writing IPTC/XMP keywords and titles into image files |
+| Unit Testing | **JUnit 5** + **Mockito** | Testing pieces in isolation with mocks |
+| Integration Testing | **Testcontainers** | Running tests against a real Postgres in Docker |
+| CI/CD | **GitHub Actions** | Building and testing automatically on every push and PR |
+| Containers | **Docker** + **Docker Compose** | Starting the app, database and ML service with one command |
+| Metrics | **Micrometer** + **Prometheus** + **Grafana** | Tracking queue depth, job time and failure rate |
+| Load Testing | **k6** | Measuring throughput and finding bottlenecks |
+| File Watching | **`java.nio.file.WatchService`** | Starting jobs automatically when new files arrive |
+
+### 💡 Recommended Extras
+
+| Area | Tool | Why It's Worth It |
+|---|---|---|
+| API Docs | **springdoc-openapi** (Swagger UI) | Interactive API docs generated from your code, so reviewers can try the API in a browser |
+| API Client | **Bruno** or **Postman** | Saving and sharing API requests instead of retyping `curl` commands |
+| Health & Ops | **Spring Boot Actuator** | `/actuator/health` and `/actuator/metrics` endpoints, used by Docker health checks and Prometheus |
+| DB Migrations | **Flyway** | Versioning database schema changes the way real teams do |
+| Resilience | **Resilience4j** | Ready-made retry, circuit breaker and rate limiting, which is especially useful around the ML service |
+| Config | **`@ConfigurationProperties`** | Type-safe settings for thresholds, paths and worker count |
+| Code Coverage | **JaCoCo** | Coverage reports, plus a badge for the README |
+| Formatting & Linting | **Spotless** + **Checkstyle** | Consistent code style enforced in CI |
+| Static Analysis | **SonarCloud** (free for public repos) | Finds bugs and code smells, and gives you a quality badge |
+| Dependency Updates | **Dependabot** | Automatic PRs that keep dependencies up to date |
+| Diagrams | **Mermaid** | Architecture diagrams that GitHub renders right in the README |
+| Messaging (stretch) | **RabbitMQ** or **Kafka** | Replacing the in-memory queue with a real message broker, a big plus for distributed-systems interviews |
+| Caching (stretch) | **Redis** | Caching ML results so re-tagging the same image is instant |
+| Deployment (stretch) | **AWS** (EC2 / ECS + S3) or **Fly.io** | A live demo link on your résumé |
+| Commits | **Conventional Commits** (`feat:`, `fix:`, `docs:`) | A clean, readable history that reviewers notice |
 
 ---
 
