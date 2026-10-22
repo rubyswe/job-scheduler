@@ -190,4 +190,30 @@ curl http://localhost:8080/jobs/<job-id>
 
 ## Benchmarks
 
-_Coming soon: images processed per minute, header-only vs. full-decode timing, and keyword precision and recall._
+### Baseline: `ImageSorter` v0 (full image decode with `ImageIO.read`)
+
+**Setup**
+
+| | |
+|---|---|
+| Machine | Apple M4, 16 GB RAM |
+| Java | OpenJDK 21.0.6 |
+| Dataset | 25 JPEGs (81 MB) of my own photos and wallpapers; 15 are 24 MP (6000×4000) camera shots |
+| Method | 1 warm-up run (not counted), then 5 timed runs on a fresh copy of the folder each time; median reported |
+| Ground truth | Real dimensions read with macOS `sips` |
+
+**Results**
+
+| Metric | Result |
+|---|---|
+| Accuracy | 25 / 25 correct (17 moved as 4K, 8 correctly skipped) |
+| Median time | 5.65 s (runs: 5.59 to 5.66 s) |
+| Throughput | ~4.4 images/s (~226 ms per image) |
+| Heap committed | ~208 MB |
+
+**Notes**
+- Decoding the entire image just to read its dimensions is the bottleneck. The next step is header-only reads with `ImageReader`, measured against this baseline.
+- One photo (1800×2520, 4.5 MP) is skipped under the 4K rule but would pass a 4 MP rule. This needs to be settled against Adobe Stock's actual requirement.
+- 25 images is a small sample. Future benchmarks will use 500 or more.
+
+_Still to come: header-only vs. full-decode comparison, scheduler throughput (jobs/s), worker scaling, and keyword precision and recall._
